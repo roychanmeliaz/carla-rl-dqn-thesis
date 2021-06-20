@@ -73,6 +73,7 @@ def model_base_64x3_CNN(input_shape):
     model.add(AveragePooling2D(pool_size=(5, 5), strides=(3, 3), padding='same'))
 
     model.add(Flatten())
+    # model.summary()
 
     return model.input, model.output
 
@@ -258,6 +259,10 @@ def model_head_hidden_dense(model_input, model_output, outputs, model_settings):
 
     # Create a model
     model = Model(inputs=inputs, outputs=predictions)
+
+    # for _ in range(3):
+    #     model.summary()
+    #     print("\n")
 
     return model
 

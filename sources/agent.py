@@ -720,11 +720,12 @@ def play(model_path, pause, console_print_callback):
             # Prepare observation space accordingly to settings
             new_state[0] = agent.prepare_image(new_state[0])
 
+            # custom
             # Show a preview (agent)
-            '''
-            cv2.imshow(f'Agent - preview', new_state[0])
+            # '''
+            cv2.imshow(f'Agent Camera - preview', new_state[0])
             cv2.waitKey(1)
-            '''
+            # '''
 
             # Show preview ("above the car" camera)
             if env.preview_camera is not None:

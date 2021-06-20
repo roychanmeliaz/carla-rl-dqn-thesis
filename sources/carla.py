@@ -17,6 +17,9 @@ import psutil
 import subprocess
 from queue import Queue
 
+#custom
+from carla import ColorConverter as cc
+
 
 @dataclass
 class ACTIONS:
@@ -117,7 +120,14 @@ class CarlaEnv:
         while True:
             try:
                 # Get random spot from a list from predefined spots and try to spawn a car there
-                self.transform = random.choice(self.world.get_map().get_spawn_points())
+                # custom
+                # self.transform = random.choice(self.world.get_map().get_spawn_points())
+                self.transform = self.world.get_map().get_spawn_points()[186]
+                # for _ in range(200):
+                #     print(self.transform)
+                # self.transform = Transform(Location(x=-6.44617, y=-79.055, z=1.843), Rotation(pitch=0, yaw=92.0042, roll=0))
+                # for i, loc in enumerate(self.world.get_map().get_spawn_points()):
+                    # print(i,loc)
                 self.vehicle = self.world.spawn_actor(self.model_3, self.transform)
                 break
             except:
@@ -130,8 +140,19 @@ class CarlaEnv:
         # Append actor to a list of spawned actors, we need to remove them later
         self.actor_list.append(self.vehicle)
 
+        #custom
+        #draw custom spawn points
+        # for waypoint in self.world.get_map().get_spawn_points():
+        #     print(waypoint)
+        #     self.world.debug.draw_string(waypoint.transform.location, 'o', draw_shadow=False,
+        #                             color=carla.Color(r=255, g=255, b=255), life_time=0.2,
+        #                             persistent_lines=True)
         # Get the blueprint for the camera
-        self.rgb_cam = self.world.get_blueprint_library().find('sensor.camera.rgb')
+        # self.rgb_cam = self.world.get_blueprint_library().find('sensor.camera.rgb')
+        if settings.USE_SEMANTIC_SEGMENTATION==True:
+            self.rgb_cam = self.world.get_blueprint_library().find('sensor.camera.semantic_segmentation')
+        else:
+            self.rgb_cam = self.world.get_blueprint_library().find('sensor.camera.rgb')
         # Set sensor resolution and field of view
         self.rgb_cam.set_attribute('image_size_x', f'{self.im_width}')
         self.rgb_cam.set_attribute('image_size_y', f'{self.im_height}')
@@ -228,7 +249,9 @@ class CarlaEnv:
 
     # Camera sensor data callback handler
     def _process_img(self, image):
-
+        #custom
+        if settings.USE_SEMANTIC_SEGMENTATION==True:
+            image.convert(cc.CityScapesPalette)
         # Get image, reshape and drop alpha channel
         image = np.array(image.raw_data)
         image = image.reshape((self.im_height, self.im_width, 4))
@@ -388,7 +411,10 @@ def start(playing=False):
                 if len(settings.CARLA_HOSTS[process_no]) == 2 or not settings.CARLA_HOSTS[process_no][2]:
                     break
                 if isinstance(settings.CARLA_HOSTS[process_no][2], int):
-                    map_choice = random.choice([map.split('/')[-1] for map in client.get_available_maps()])
+                    #custom
+                    # print(client.get_available_maps())
+                    map_choice = 'Town03'
+                    # map_choice = random.choice([map.split('/')[-1] for map in client.get_available_maps()])
                 else:
                     map_choice = settings.CARLA_HOSTS[process_no][2]
                 if map_name != map_choice:
@@ -424,7 +450,10 @@ def restart(playing=False):
                 if len(settings.CARLA_HOSTS[process_no]) == 2 or not settings.CARLA_HOSTS[process_no][2]:
                     break
                 if isinstance(settings.CARLA_HOSTS[process_no][2], int):
-                    map_choice = random.choice([map.split('/')[-1] for map in client.get_available_maps()])
+                    #custom
+                    # print(client.get_available_maps())
+                    map_choice = 'Town03'
+                    # map_choice = random.choice([map.split('/')[-1] for map in client.get_available_maps()])
                 else:
                     map_choice = settings.CARLA_HOSTS[process_no][2]
                 if map_name != map_choice:
@@ -720,7 +749,9 @@ class CarlaEnvSettings:
                                 time.sleep(0.1)
 
                         # Get random map and load it
-                        map_choice = random.choice(list({map.split('/')[-1] for map in self.client.get_available_maps()} - {self.client.get_world().get_map().name}))
+                        #custom
+                        map_choice = 'Town03'
+                        # map_choice = random.choice(list({map.split('/')[-1] for map in self.client.get_available_maps()} - {self.client.get_world().get_map().name}))
                         self.client.load_world(map_choice)
 
                         # Wait for world to be fully loaded
@@ -825,6 +856,7 @@ class CarlaEnvSettings:
                                 try:
                                     # Get random spot from a list from predefined spots and try to spawn a car there
                                     spawn_point = random.choice(self.spawn_points)
+                                    # spawn_point = self.world.get_map().get_spawn_points()[186]
                                     car_actor = self.world.spawn_actor(car_blueprint, spawn_point)
                                     car_actor.set_autopilot()
                                     break
