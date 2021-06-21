@@ -57,6 +57,15 @@ ACTIONS_NAMES = {
     8: 'no_action',
 }
 
+# custom func start ========================
+def angle_of_line(x1, y1, x2, y2):
+    return math.degrees(math.atan2(y2-y1, x2-x1))
+
+def angle_difference(sourceA, targetA):
+	a = targetA - sourceA
+	a = (a + 180) % 360 - 180
+	return a
+# custom func end   ========================
 
 # Carla environment
 class CarlaEnv:
@@ -122,7 +131,8 @@ class CarlaEnv:
                 # Get random spot from a list from predefined spots and try to spawn a car there
                 # custom
                 # self.transform = random.choice(self.world.get_map().get_spawn_points())
-                self.transform = self.world.get_map().get_spawn_points()[186]
+                # self.transform = self.world.get_map().get_spawn_points()[186]
+                self.transform = self.world.get_map().get_spawn_points()[181]
                 # for _ in range(200):
                 #     print(self.transform)
                 # self.transform = Transform(Location(x=-6.44617, y=-79.055, z=1.843), Rotation(pitch=0, yaw=92.0042, roll=0))
@@ -302,20 +312,55 @@ class CarlaEnv:
 
         done = False
 
+        car_trans = self.vehicle.get_transform()
+        car_yaw = car_trans.rotation.yaw
+        roundabout_to_car = angle_of_line(0,0,car_trans.location.x, car_trans.location.y)
+        angle_diff = angle_difference(roundabout_to_car, car_yaw)
+
         # If car collided - end and episode and send back a penalty
         if len(self.collision_hist) != 0:
             done = True
             reward = -1
 
-        # Reward
-        elif settings.WEIGHT_REWARDS_WITH_SPEED == 'discrete':
-            reward = settings.SPEED_MIN_REWARD if kmh < 50 else settings.SPEED_MAX_REWARD
+        else:
+            angle_diff_abs = (angle_diff) # range 45 sampe 135
+            angle_diff_abs += 90 # range -45 sampe 45
+            angle_diff_abs = abs(angle_diff_abs) # range 45 - 0 - 45
+            if angle_diff_abs>180:
+                angle_diff_abs = abs(-180 + (angle_diff_abs-180))
+            # angle_diff_abs = angle_diff_abs%180 # range 45 - 0 - 45
+            if angle_diff_abs!=0:
+                reward = 1/angle_diff_abs
+            if reward>1:
+                reward=1
 
-        elif settings.WEIGHT_REWARDS_WITH_SPEED == 'linear':
-            reward = kmh * (settings.SPEED_MAX_REWARD - settings.SPEED_MIN_REWARD) / 100 + settings.SPEED_MIN_REWARD
 
-        elif settings.WEIGHT_REWARDS_WITH_SPEED == 'quadratic':
-            reward = (kmh / 100) ** 1.3 * (settings.SPEED_MAX_REWARD - settings.SPEED_MIN_REWARD) + settings.SPEED_MIN_REWARD
+        # Reward NEW START ========================        
+		# range -45 sampe -135
+        # elif angle_diff < -45 and angle_diff > -135:
+        #     angle_diff_abs = abs(angle_diff) # range 45 sampe 135
+        #     angle_diff_abs -= 90 # range -45 sampe 45
+        #     angle_diff_abs = abs(angle_diff_abs) # range 45 - 0 - 45
+        #     angle_diff_abs = angle_diff_abs-45 # range 0 - -45 - 0
+        #     angle_diff_abs = abs(angle_diff_abs) # range 0 - 45 - 0
+        #     reward = angle_diff_abs/45 # range 0 - 1 - 0
+		# # range 0 sampe -45 dan -135 sampe -179
+        # elif ((angle_diff >= -45 and angle_diff < 0) or (angle_diff <= -135 and angle_diff >= -179)):
+        #     reward = -.25
+        # else:
+        #     reward = -1
+
+        # Reward NEW END   ========================
+
+        # Reward OLD
+        # elif settings.WEIGHT_REWARDS_WITH_SPEED == 'discrete':
+        #     reward = settings.SPEED_MIN_REWARD if kmh < 50 else settings.SPEED_MAX_REWARD
+
+        # elif settings.WEIGHT_REWARDS_WITH_SPEED == 'linear':
+        #     reward = kmh * (settings.SPEED_MAX_REWARD - settings.SPEED_MIN_REWARD) / 100 + settings.SPEED_MIN_REWARD
+
+        # elif settings.WEIGHT_REWARDS_WITH_SPEED == 'quadratic':
+        #     reward = (kmh / 100) ** 1.3 * (settings.SPEED_MAX_REWARD - settings.SPEED_MIN_REWARD) + settings.SPEED_MIN_REWARD
 
         # If episode duration limit reached - send back a terminal state
         if not self.playing and self.episode_start + self.seconds_per_episode.value < time.time():
