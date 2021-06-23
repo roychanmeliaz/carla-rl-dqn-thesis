@@ -65,11 +65,17 @@ def angle_difference(sourceA, targetA):
 	a = targetA - sourceA
 	a = (a + 180) % 360 - 180
 	return a
+
+def get_dist(x1,y1,x2,y2):
+	return math.hypot(x2 - x1, y2 - y1)
 # custom func end   ========================
+
+# custom var start  =========================
+on_sidewalk = False
+# custom var end    =========================
 
 # Carla environment
 class CarlaEnv:
-
     # How much steering to apply
     STEER_AMT = 1.0
 
@@ -118,6 +124,12 @@ class CarlaEnv:
 
     # Resets environment for new episode
     def reset(self):
+        # custom var start ======================
+        map_list_custom = [
+            self.world.get_map().get_spawn_points()[167],
+            self.world.get_map().get_spawn_points()[181]
+        ]
+        # custom var end   ======================
 
         # Car, sensors, etc. We create them every episode then destroy
         self.actor_list = []
@@ -132,7 +144,9 @@ class CarlaEnv:
                 # custom
                 # self.transform = random.choice(self.world.get_map().get_spawn_points())
                 # self.transform = self.world.get_map().get_spawn_points()[186]
-                self.transform = self.world.get_map().get_spawn_points()[181]
+                # self.transform = self.world.get_map().get_spawn_points()[181]
+                # self.transform = self.world.get_map().get_spawn_points()[167]
+                self.transform = random.choice(map_list_custom)
                 # for _ in range(200):
                 #     print(self.transform)
                 # self.transform = Transform(Location(x=-6.44617, y=-79.055, z=1.843), Rotation(pitch=0, yaw=92.0042, roll=0))
@@ -252,6 +266,13 @@ class CarlaEnv:
         # Filter collisions
         for actor_id, impulse in settings.COLLISION_FILTER:
             if actor_id in collision_actor_id and (impulse == -1 or collision_impulse <= impulse):
+                # custom start ======
+                # sidewalk boleh
+                # if collision_actor_id=='static.sidewalk':
+                #     # self.collision_hist.append(event)
+                #     global on_sidewalk
+                #     on_sidewalk = True
+                # custom end   ======
                 return
 
         # Add collision
@@ -312,28 +333,59 @@ class CarlaEnv:
 
         done = False
 
+        # custom start ======================================
+        pusatx = -.5
+        pusaty = .5
+        dis = 21.5
         car_trans = self.vehicle.get_transform()
         car_yaw = car_trans.rotation.yaw
-        roundabout_to_car = angle_of_line(0,0,car_trans.location.x, car_trans.location.y)
+        roundabout_to_car = angle_of_line(pusatx,pusaty,car_trans.location.x, car_trans.location.y)
         angle_diff = angle_difference(roundabout_to_car, car_yaw)
+        dist = get_dist(pusatx,pusaty,car_trans.location.x,car_trans.location.y)
+        # custom end   ======================================
 
         # If car collided - end and episode and send back a penalty
         if len(self.collision_hist) != 0:
+            # for _ in range(50):
+            #     print(self.collision_hist[0])
             done = True
             reward = -1
 
         else:
+            # reward 1 arah start ===================================
             angle_diff_abs = (angle_diff) # range 45 sampe 135
             angle_diff_abs += 90 # range -45 sampe 45
             angle_diff_abs = abs(angle_diff_abs) # range 45 - 0 - 45
             if angle_diff_abs>180:
                 angle_diff_abs = abs(-180 + (angle_diff_abs-180))
-            # angle_diff_abs = angle_diff_abs%180 # range 45 - 0 - 45
+            # 180-270
             if angle_diff_abs!=0:
                 reward = 1/angle_diff_abs
-            if reward>1:
-                reward=1
+            reward = min(1,reward)
+            # reward 1 arah end   ===================================
 
+            # reward 2 jarak start ==================================
+            dist_proc = abs(dist-dis)
+            reward2 = 1/(dist_proc*10)
+            reward2 = min(1,reward2)
+            # reward 2 jarak end   ==================================
+
+            # Punishment 1 jarak start ==============================
+            punishment = 0
+            if dist > 30:
+                punishment = .5
+            # Punishment 1 jarak end   ==============================
+
+            # reward total start ====================================
+            reward = reward+reward2-punishment
+            # reward total end   ====================================
+
+            # global on_sidewalk
+            # if on_sidewalk==True:
+            #     on_sidewalk=False
+            #     reward = -1000
+            #     for _ in range(50):
+            #         print("sidewalknew")
 
         # Reward NEW START ========================        
 		# range -45 sampe -135
