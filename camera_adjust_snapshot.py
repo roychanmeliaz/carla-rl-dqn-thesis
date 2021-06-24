@@ -24,32 +24,23 @@ import carla
 
 _HOST_ = '127.0.0.1'
 _PORT_ = 2000
-_SLEEP_TIME_ = .1
+_SLEEP_TIME_ = .5
 
 
 def main():
-	client = carla.Client(_HOST_, _PORT_)
-	client.set_timeout(2.0)
-	world = client.get_world()
+    client = carla.Client(_HOST_, _PORT_)
+    client.set_timeout(2.0)
+    world = client.get_world()
+    
+    # (x,y,z) = (2.238,-0.462,67.119) | (pitch,yaw,roll) = (-89.0,-178.717,0.0)
+    camera = world.get_spectator()
+    camera.set_transform(carla.Transform(carla.Location(x=0.0,y=0.0,z=50.0),carla.Rotation(pitch=-89.0,yaw=-180.0,roll=0.0)))
 
-	while(True):
-		t = world.get_spectator().get_transform()
-		# coordinate_str = "(x,y) = ({},{})".format(t.location.x, t.location.y)
-		# coordinate_str = "(x,y,z) = ({},{},{})".format(t.location.x, t.location.y,t.location.z)
-		# coordinate_str = "(x,y,z) = ({},{},{}) | (pitch,yaw,roll) = ({},{},{})".format(
-		# 	t.location.x, t.location.y, t.location.z,
-		# 	t.rotation.pitch, t.rotation.yaw, t.rotation.roll
-		# 	)
-		coordinate_str = "(x,y,z) = ({},{},{}) | (pitch,yaw,roll) = ({},{},{})".format(
-			round(t.location.x,3), round(t.location.y,3), round(t.location.z,3),
-			round(t.rotation.pitch,3), round(t.rotation.yaw,3), round(t.rotation.roll,3)
-			)
-		print (coordinate_str)
-		time.sleep(_SLEEP_TIME_)
-
-
+    while(True):
+        camera.set_transform(carla.Transform(carla.Location(x=0.0,y=0.0,z=50.0),carla.Rotation(pitch=-89.0,yaw=-180.0,roll=0.0)))
+        time.sleep(_SLEEP_TIME_)
 
 if __name__ == '__main__':
-	main()
+    main()
 
 

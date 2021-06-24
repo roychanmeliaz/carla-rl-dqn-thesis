@@ -34,20 +34,12 @@ def main():
 
 	while(True):
 		t = world.get_spectator().get_transform()
-		# coordinate_str = "(x,y) = ({},{})".format(t.location.x, t.location.y)
-		# coordinate_str = "(x,y,z) = ({},{},{})".format(t.location.x, t.location.y,t.location.z)
-		# coordinate_str = "(x,y,z) = ({},{},{}) | (pitch,yaw,roll) = ({},{},{})".format(
-		# 	t.location.x, t.location.y, t.location.z,
-		# 	t.rotation.pitch, t.rotation.yaw, t.rotation.roll
-		# 	)
 		coordinate_str = "(x,y,z) = ({},{},{}) | (pitch,yaw,roll) = ({},{},{})".format(
 			round(t.location.x,3), round(t.location.y,3), round(t.location.z,3),
 			round(t.rotation.pitch,3), round(t.rotation.yaw,3), round(t.rotation.roll,3)
 			)
 		print (coordinate_str)
 		time.sleep(_SLEEP_TIME_)
-
-
 
 if __name__ == '__main__':
 	main()

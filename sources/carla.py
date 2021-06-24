@@ -62,12 +62,12 @@ def angle_of_line(x1, y1, x2, y2):
     return math.degrees(math.atan2(y2-y1, x2-x1))
 
 def angle_difference(sourceA, targetA):
-	a = targetA - sourceA
-	a = (a + 180) % 360 - 180
-	return a
+    a = targetA - sourceA
+    a = (a + 180) % 360 - 180
+    return a
 
 def get_dist(x1,y1,x2,y2):
-	return math.hypot(x2 - x1, y2 - y1)
+    return math.hypot(x2 - x1, y2 - y1)
 # custom func end   ========================
 
 # custom var start  =========================
@@ -124,12 +124,19 @@ class CarlaEnv:
 
     # Resets environment for new episode
     def reset(self):
-        # custom var start ======================
+        # custom start ======================
+
+        # spawn_point_list
         map_list_custom = [
             self.world.get_map().get_spawn_points()[167],
             self.world.get_map().get_spawn_points()[181]
         ]
-        # custom var end   ======================
+
+        # set camera location
+        camera = self.world.get_spectator()
+        camera.set_transform(carla.Transform(carla.Location(x=0.0,y=0.0,z=70.0),carla.Rotation(pitch=-89.0,yaw=-180.0,roll=0.0)))
+
+        # custom end   ======================
 
         # Car, sensors, etc. We create them every episode then destroy
         self.actor_list = []
@@ -342,6 +349,9 @@ class CarlaEnv:
         roundabout_to_car = angle_of_line(pusatx,pusaty,car_trans.location.x, car_trans.location.y)
         angle_diff = angle_difference(roundabout_to_car, car_yaw)
         dist = get_dist(pusatx,pusaty,car_trans.location.x,car_trans.location.y)
+
+        # if self.playing:
+        #     self.world.debug.draw_box(carla.BoundingBox(car_trans.location,carla.Vector3D(0.1,0.1,0.1)),car_trans.rotation, 0.5, carla.Color(255,0,0,0),5.0)
         # custom end   ======================================
 
         # If car collided - end and episode and send back a penalty
@@ -388,7 +398,7 @@ class CarlaEnv:
             #         print("sidewalknew")
 
         # Reward NEW START ========================        
-		# range -45 sampe -135
+        # range -45 sampe -135
         # elif angle_diff < -45 and angle_diff > -135:
         #     angle_diff_abs = abs(angle_diff) # range 45 sampe 135
         #     angle_diff_abs -= 90 # range -45 sampe 45
@@ -396,7 +406,7 @@ class CarlaEnv:
         #     angle_diff_abs = angle_diff_abs-45 # range 0 - -45 - 0
         #     angle_diff_abs = abs(angle_diff_abs) # range 0 - 45 - 0
         #     reward = angle_diff_abs/45 # range 0 - 1 - 0
-		# # range 0 sampe -45 dan -135 sampe -179
+        # # range 0 sampe -45 dan -135 sampe -179
         # elif ((angle_diff >= -45 and angle_diff < 0) or (angle_diff <= -135 and angle_diff >= -179)):
         #     reward = -.25
         # else:
@@ -667,6 +677,7 @@ class CarlaEnvSettings:
     def __init__(self, process_no, agent_pauses, stop=None, car_npcs=[0, 0], stats=[0., 0., 0., 0., 0., 0.]):
 
         # Speed factor changes how fast weather should change
+        # self.speed_factor = 0.0
         self.speed_factor = 1.0
 
         # Process number (Carla instane to use)
@@ -972,8 +983,8 @@ class CarlaEnvSettings:
                             self.spawned_car_npcs[car_actor.id] = [car_actor, colsensor]
 
                     # Tick a weather and set it in Carla
-                    self.weather.tick(self.speed_factor)
-                    self.world.set_weather(self.weather.weather)
+                    # self.weather.tick(self.speed_factor)
+                    # self.world.set_weather(self.weather.weather)
 
                     # Set stats for tensorboard
                     self.stats[0] = len(self.spawned_car_npcs)
