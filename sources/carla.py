@@ -19,6 +19,7 @@ from queue import Queue
 
 #custom
 from carla import ColorConverter as cc
+import csv
 
 
 @dataclass
@@ -87,6 +88,10 @@ class CarlaEnv:
     action_space_size = len(settings.ACTIONS)
 
     def __init__(self, carla_instance, seconds_per_episode=None, playing=False):
+        # custom start =========================
+        # variables tracking
+        self.speed_list=[]
+        # custom end   =========================
 
         # Set a client and timeouts
         self.client = carla.Client(*settings.CARLA_HOSTS[carla_instance][:2])
@@ -125,17 +130,20 @@ class CarlaEnv:
     # Resets environment for new episode
     def reset(self):
         # custom start ======================
-
         # spawn_point_list
         map_list_custom = [
             self.world.get_map().get_spawn_points()[167],
             self.world.get_map().get_spawn_points()[181]
         ]
-
         # set camera location
         camera = self.world.get_spectator()
         camera.set_transform(carla.Transform(carla.Location(x=0.0,y=0.0,z=70.0),carla.Rotation(pitch=-89.0,yaw=-180.0,roll=0.0)))
-
+        # variables tracking
+        self.speed_list=[]
+        self.episode_length_list=[]
+        self.angle_diff_list=[]
+        self.dist_diff_list=[]
+        self.reward_list=[]
         # custom end   ======================
 
         # Car, sensors, etc. We create them every episode then destroy
@@ -349,7 +357,6 @@ class CarlaEnv:
         roundabout_to_car = angle_of_line(pusatx,pusaty,car_trans.location.x, car_trans.location.y)
         angle_diff = angle_difference(roundabout_to_car, car_yaw)
         dist = get_dist(pusatx,pusaty,car_trans.location.x,car_trans.location.y)
-
         # if self.playing:
         #     self.world.debug.draw_box(carla.BoundingBox(car_trans.location,carla.Vector3D(0.1,0.1,0.1)),car_trans.rotation, 0.5, carla.Color(255,0,0,0),5.0)
         # custom end   ======================================
@@ -431,6 +438,26 @@ class CarlaEnv:
         # Weights rewards (not for terminal state)
         if not self.playing and settings.WEIGHT_REWARDS_WITH_EPISODE_PROGRESS and not done:
             reward *= (time.time() - self.episode_start) / self.seconds_per_episode.value
+
+        # custom start ====================
+        # datas
+        if (done):
+            with open('avg_data.csv', mode='a', newline='') as avg_data_file:
+                avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                avg_data_writer.writerow([
+                    int(time.time() - self.episode_start),
+                    np.mean(self.speed_list),
+                    np.mean(self.angle_diff_list),
+                    np.mean(self.dist_diff_list),
+                    np.mean(self.reward_list),
+                    ])
+        else:
+            self.speed_list.append(kmh)
+            self.angle_diff_list.append(angle_diff_abs)
+            self.dist_diff_list.append(dist_proc)
+            self.reward_list.append(reward)
+        # custom end ======================
+
 
         return [self.front_camera, kmh], reward, done, None
 
