@@ -299,11 +299,24 @@ class CarlaEnv:
     def _process_img(self, image):
         #custom
         if settings.USE_SEMANTIC_SEGMENTATION==True:
+            # road = [7,0,0]
+            # white = [255,255,255]
+            # image[np.all(image == road, axis=-1)] = white
             image.convert(cc.CityScapesPalette)
         # Get image, reshape and drop alpha channel
         image = np.array(image.raw_data)
         image = image.reshape((self.im_height, self.im_width, 4))
         image = image[:, :, :3]
+
+        if settings.USE_SEMANTIC_SEGMENTATION==True:
+            road = [128, 64, 128]
+            roadLine = [50, 234, 157]
+            white = [255,255,255]
+            black = [0,0,0]
+            roadMask = np.all(image == road,  axis=-1)
+            roadLineMask = np.all(image == roadLine, axis=-1)
+            image[roadMask | roadLineMask] = white
+            image[~(roadMask | roadLineMask)] = black
 
         # Set as a current frame in environment
         self.front_camera = image
