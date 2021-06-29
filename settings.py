@@ -42,8 +42,8 @@ AGENT_MEMORY_FRACTION = 0.1
 AGENT_GPU = None  # None, a number (to use given GPU for all agents) or a list - example [0, 1, 1] (first agent - GPU 0, 2nd and 3rd GPU 1)
 AGENT_CARLA_INSTANCE = []  # Empty list for first Carla instance or list in size of AGENTS with Carla instance bounds for agents, for excample [1, 1, 2, 2]
 UPDATE_WEIGHTS_EVERY = 0  # How frequently to update weights (compared to trainer fits), 0 for episode start only
-# AGENT_SHOW_PREVIEW = []  # List of agent id's so show a preview, or empty list
-AGENT_SHOW_PREVIEW = [1]  # List of agent id's so show a preview, or empty list
+AGENT_SHOW_PREVIEW = []  # List of agent id's so show a preview, or empty list
+# AGENT_SHOW_PREVIEW = [1]  # List of agent id's so show a preview, or empty list
 AGENT_SYNCED = True  # Synchronizes agent with frame updates from Carla
 AGENT_IMG_TYPE = 'grayscaled'  # 'rgb', 'grayscaled' or 'stacked' (stacks last 3 consecutive grayscaled frames)
 # AGENT_IMG_TYPE = 'rgb'  # 'rgb', 'grayscaled' or 'stacked' (stacks last 3 consecutive grayscaled frames)
@@ -56,11 +56,11 @@ PREDICTION_BATCH_SIZE = 1  # How many samples to predict at once (the more, the 
 TRAINING_BATCH_SIZE = MINIBATCH_SIZE // 2  # How many samples to fit at once (the more, the faster) - should be MINIBATCH_SIZE divided by power of 2
 UPDATE_TARGET_EVERY = 100  # Terminal states (end of episodes)
 # MODEL_NAME = 'graysegtown3static_5_residual_#CNN_KERNELS#'  # model name, prefixed from sources/models.py, #MODEL_ARCHITECTURE# adds model architectore acronym, #CNN_KERNELS# adds number of kernels from all CNN layers
-MODEL_NAME = 'bunderan2_64x3_#CNN_KERNELS#'  # model name, prefixed from sources/models.py, #MODEL_ARCHITECTURE# adds model architectore acronym, #CNN_KERNELS# adds number of kernels from all CNN layers
+MODEL_NAME = 'bunderan2_betterenv_64x3_#CNN_KERNELS#'  # model name, prefixed from sources/models.py, #MODEL_ARCHITECTURE# adds model architectore acronym, #CNN_KERNELS# adds number of kernels from all CNN layers
 MIN_REWARD = 100  # For model save
 TRAINER_MEMORY_FRACTION = 0.6
 TRAINER_GPU = None  # None - not set, 0, 1, ... - GPU with given index
-SAVE_CHECKPOINT_EVERY = 50  # episodes
+SAVE_CHECKPOINT_EVERY = 100  # episodes
 
 # DQN settings
 DISCOUNT = 0.99

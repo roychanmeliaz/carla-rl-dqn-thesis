@@ -1,6 +1,7 @@
 .idea/
 checkpoint*/
 logs*/
+models*/
 models/
 *.pyc
 tmp/

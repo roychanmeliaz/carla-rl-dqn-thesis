@@ -133,7 +133,9 @@ class CarlaEnv:
         # spawn_point_list
         map_list_custom = [
             self.world.get_map().get_spawn_points()[167],
-            self.world.get_map().get_spawn_points()[181]
+            self.world.get_map().get_spawn_points()[181],
+            carla.Transform(carla.Location(x=19.6,y=-11.7,z=1.8431),carla.Rotation(pitch=0, yaw=-133, roll=0)),
+            carla.Transform(carla.Location(x=-13.5,y=-19.3,z=1.8431),carla.Rotation(pitch=0, yaw=136, roll=0))
         ]
         # set camera location
         camera = self.world.get_spectator()
