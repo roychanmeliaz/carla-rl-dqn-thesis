@@ -87,6 +87,112 @@ class CarlaEnv:
     # Action space size
     action_space_size = len(settings.ACTIONS)
 
+    # waypoints
+    bunderan_waypoints = []
+    bunderan_waypoints.append((103.84294891357422,64.19479370117188))
+    bunderan_waypoints.append((102.77753448486328,64.27484893798828))
+    bunderan_waypoints.append((101.66400909423828,64.37203216552734))
+    bunderan_waypoints.append((100.55635833740234,64.50273132324219))
+    bunderan_waypoints.append((99.46969604492188,64.66295623779297))
+    bunderan_waypoints.append((98.37799835205078,64.8742446899414))
+    bunderan_waypoints.append((97.33356475830078,65.15473175048828))
+    bunderan_waypoints.append((96.27842712402344,65.4795913696289))
+    bunderan_waypoints.append((95.25698852539062,65.83106994628906))
+    bunderan_waypoints.append((94.32801818847656,66.30314636230469))
+    bunderan_waypoints.append((93.40272521972656,66.88826751708984))
+    bunderan_waypoints.append((92.5385513305664,67.50526428222656))
+    bunderan_waypoints.append((91.66393280029297,68.0943374633789))
+    bunderan_waypoints.append((90.75911712646484,68.6967544555664))
+    bunderan_waypoints.append((89.87803649902344,69.27584075927734))
+    bunderan_waypoints.append((88.99041748046875,69.86024475097656))
+    bunderan_waypoints.append((88.12064361572266,70.43084716796875))
+    bunderan_waypoints.append((87.24790954589844,70.99837493896484))
+    bunderan_waypoints.append((86.38330841064453,71.55154418945312))
+    bunderan_waypoints.append((85.47853088378906,72.11196899414062))
+    bunderan_waypoints.append((84.56084442138672,72.51951599121094))
+    bunderan_waypoints.append((83.5077896118164,72.98719024658203))
+    bunderan_waypoints.append((82.542724609375,73.41484069824219))
+    bunderan_waypoints.append((81.54732513427734,73.75298309326172))
+    bunderan_waypoints.append((80.48033905029297,74.00922393798828))
+    bunderan_waypoints.append((79.3795166015625,74.19007873535156))
+    bunderan_waypoints.append((78.2535629272461,74.29595947265625))
+    bunderan_waypoints.append((77.13347625732422,74.296630859375))
+    bunderan_waypoints.append((76.00569915771484,74.26954650878906))
+    bunderan_waypoints.append((74.89289093017578,74.21240997314453))
+    bunderan_waypoints.append((73.77533721923828,74.146484375))
+    bunderan_waypoints.append((72.63985443115234,74.05473327636719))
+    bunderan_waypoints.append((71.52111053466797,73.77349090576172))
+    bunderan_waypoints.append((70.51206970214844,73.35880279541016))
+    bunderan_waypoints.append((69.4709701538086,72.8286361694336))
+    bunderan_waypoints.append((68.51145935058594,72.21977996826172))
+    bunderan_waypoints.append((67.57743072509766,71.55890655517578))
+    bunderan_waypoints.append((66.62791442871094,70.85128784179688))
+    bunderan_waypoints.append((65.80152130126953,70.05152130126953))
+    bunderan_waypoints.append((65.04995727539062,69.16112518310547))
+    bunderan_waypoints.append((64.35430908203125,68.22051239013672))
+    bunderan_waypoints.append((63.70584487915039,67.26461029052734))
+    bunderan_waypoints.append((63.11410140991211,66.27951049804688))
+    bunderan_waypoints.append((62.57427215576172,65.25041198730469))
+    bunderan_waypoints.append((62.11251449584961,64.18560028076172))
+    bunderan_waypoints.append((61.72903823852539,62.99799728393555))
+    bunderan_waypoints.append((61.51875686645508,61.87117385864258))
+    bunderan_waypoints.append((61.36729431152344,60.71494674682617))
+    bunderan_waypoints.append((61.347434997558594,59.61738967895508))
+    bunderan_waypoints.append((61.43709945678711,58.53907012939453))
+    bunderan_waypoints.append((61.59947204589844,57.25206756591797))
+    bunderan_waypoints.append((61.82103729248047,56.13203048706055))
+    bunderan_waypoints.append((62.13115692138672,55.03913116455078))
+    bunderan_waypoints.append((62.5803108215332,53.9842414855957))
+    bunderan_waypoints.append((63.13450622558594,52.988460540771484))
+    bunderan_waypoints.append((63.76716232299805,52.05413055419922))
+    bunderan_waypoints.append((64.50353240966797,51.17920684814453))
+    bunderan_waypoints.append((65.36164093017578,50.44059371948242))
+    bunderan_waypoints.append((66.2762222290039,49.80142593383789))
+    bunderan_waypoints.append((67.1892318725586,49.164451599121094))
+    bunderan_waypoints.append((68.1085205078125,48.523651123046875))
+    bunderan_waypoints.append((69.082763671875,47.9354248046875))
+    bunderan_waypoints.append((70.12930297851562,47.44189453125))
+    bunderan_waypoints.append((71.28501892089844,46.98786163330078))
+    bunderan_waypoints.append((72.61466217041016,46.534759521484375))
+    bunderan_waypoints.append((73.71404266357422,46.32102584838867))
+    bunderan_waypoints.append((74.83573913574219,46.166439056396484))
+    bunderan_waypoints.append((75.9391860961914,46.07291793823242))
+    bunderan_waypoints.append((77.06755828857422,46.02342224121094))
+    bunderan_waypoints.append((78.1922607421875,46.03863525390625))
+    bunderan_waypoints.append((79.2781753540039,46.15121078491211))
+    bunderan_waypoints.append((80.39747619628906,46.31387710571289))
+    bunderan_waypoints.append((81.49624633789062,46.56361770629883))
+    bunderan_waypoints.append((82.53202056884766,46.96931076049805))
+    bunderan_waypoints.append((83.532958984375,47.422508239746094))
+    bunderan_waypoints.append((84.5123062133789,47.935237884521484))
+    bunderan_waypoints.append((85.44886779785156,48.50223159790039))
+    bunderan_waypoints.append((86.36940002441406,49.06724548339844))
+    bunderan_waypoints.append((87.34111785888672,49.665287017822266))
+    bunderan_waypoints.append((88.28600311279297,50.27983474731445))
+    bunderan_waypoints.append((89.1908950805664,50.90321350097656))
+    bunderan_waypoints.append((90.12358093261719,51.522972106933594))
+    bunderan_waypoints.append((91.07747650146484,52.119384765625))
+    bunderan_waypoints.append((92.01168823242188,52.686004638671875))
+    bunderan_waypoints.append((92.93928527832031,53.24860763549805))
+    bunderan_waypoints.append((93.92679595947266,53.76810073852539))
+    bunderan_waypoints.append((94.93669891357422,54.20802307128906))
+    bunderan_waypoints.append((95.95890045166016,54.6533088684082))
+    bunderan_waypoints.append((96.95877838134766,55.0888671875))
+    bunderan_waypoints.append((97.95977020263672,55.54136657714844))
+    bunderan_waypoints.append((98.95046997070312,55.99018478393555))
+    bunderan_waypoints.append((99.97605895996094,56.42598342895508))
+    bunderan_waypoints.append((100.99517059326172,56.838623046875))
+    bunderan_waypoints.append((102.07270050048828,57.15061950683594))
+    bunderan_waypoints.append((103.16251373291016,57.304012298583984))
+    bunderan_waypoints.append((104.251708984375,57.330848693847656))
+
+    bunderan_waypoints.append((105.251708984375,57.330848693847656))
+    bunderan_waypoints.append((106.251708984375,57.330848693847656))
+    bunderan_waypoints.append((107.251708984375,57.330848693847656))
+    bunderan_waypoints.append((108.251708984375,57.330848693847656))
+    bunderan_waypoints.append((109.251708984375,57.330848693847656))
+
+
     def __init__(self, carla_instance, seconds_per_episode=None, playing=False):
         # custom start =========================
         # variables tracking
@@ -131,15 +237,23 @@ class CarlaEnv:
     def reset(self):
         # custom start ======================
         # spawn_point_list
+        # map_list_custom = [
+        #     self.world.get_map().get_spawn_points()[167],
+        #     self.world.get_map().get_spawn_points()[181],
+        #     carla.Transform(carla.Location(x=19.6,y=-11.7,z=1.8431),carla.Rotation(pitch=0, yaw=-133, roll=0)),
+        #     carla.Transform(carla.Location(x=-13.5,y=-19.3,z=1.8431),carla.Rotation(pitch=0, yaw=136, roll=0))
+        # ]
         map_list_custom = [
-            self.world.get_map().get_spawn_points()[167],
-            self.world.get_map().get_spawn_points()[181],
-            carla.Transform(carla.Location(x=19.6,y=-11.7,z=1.8431),carla.Rotation(pitch=0, yaw=-133, roll=0)),
-            carla.Transform(carla.Location(x=-13.5,y=-19.3,z=1.8431),carla.Rotation(pitch=0, yaw=136, roll=0))
+            carla.Transform(carla.Location(x=103.8,y=64.2,z=1.8431),carla.Rotation(pitch=0, yaw=-179, roll=0)),
+            # carla.Transform(carla.Location(x=110.3,y=64.2,z=1.8431),carla.Rotation(pitch=0, yaw=-179, roll=0)),
+            carla.Transform(carla.Location(x=70.9,y=72.8,z=1.8431),carla.Rotation(pitch=0, yaw=-156, roll=0)),
+            carla.Transform(carla.Location(x=69.0,y=48.3,z=1.8431),carla.Rotation(pitch=0, yaw=-27, roll=0))
         ]
         # set camera location
         camera = self.world.get_spectator()
-        camera.set_transform(carla.Transform(carla.Location(x=0.0,y=0.0,z=70.0),carla.Rotation(pitch=-89.0,yaw=-180.0,roll=0.0)))
+        # camera.set_transform(carla.Transform(carla.Location(x=0.0,y=0.0,z=70.0),carla.Rotation(pitch=-89.0,yaw=-180.0,roll=0.0)))
+        # (x,y,z) = (85.035,58.13,65.596) | (pitch,yaw,roll) = (-89.0,-179.053,0.003) 
+        camera.set_transform(carla.Transform(carla.Location(x=85.035,y=58.13,z=65.596),carla.Rotation(pitch=-89.0,yaw=-180.0,roll=0.0)))
         # variables tracking
         self.speed_list=[]
         self.episode_length_list=[]
@@ -363,18 +477,24 @@ class CarlaEnv:
 
         done = False
 
-        # custom start ======================================
-        pusatx = -.5
-        pusaty = .5
-        dis = 21.5
+        # # custom start ======================================
+        # pusatx = -.5
+        # pusaty = .5
+        # dis = 21.5
+        # car_trans = self.vehicle.get_transform()
+        # car_yaw = car_trans.rotation.yaw
+        # roundabout_to_car = angle_of_line(pusatx,pusaty,car_trans.location.x, car_trans.location.y)
+        # angle_diff = angle_difference(roundabout_to_car, car_yaw)
+        # dist = get_dist(pusatx,pusaty,car_trans.location.x,car_trans.location.y)
+        # # if self.playing:
+        # #     self.world.debug.draw_box(carla.BoundingBox(car_trans.location,carla.Vector3D(0.1,0.1,0.1)),car_trans.rotation, 0.5, carla.Color(255,0,0,0),5.0)
+        # # custom end   ======================================
+
+
+        # new custom start ==================================
         car_trans = self.vehicle.get_transform()
         car_yaw = car_trans.rotation.yaw
-        roundabout_to_car = angle_of_line(pusatx,pusaty,car_trans.location.x, car_trans.location.y)
-        angle_diff = angle_difference(roundabout_to_car, car_yaw)
-        dist = get_dist(pusatx,pusaty,car_trans.location.x,car_trans.location.y)
-        # if self.playing:
-        #     self.world.debug.draw_box(carla.BoundingBox(car_trans.location,carla.Vector3D(0.1,0.1,0.1)),car_trans.rotation, 0.5, carla.Color(255,0,0,0),5.0)
-        # custom end   ======================================
+        # new custom end   ==================================
 
         # If car collided - end and episode and send back a penalty
         if len(self.collision_hist) != 0:
@@ -384,40 +504,58 @@ class CarlaEnv:
             reward = -1
 
         else:
-            # reward 1 arah start ===================================
-            angle_diff_abs = (angle_diff) # range 45 sampe 135
-            angle_diff_abs += 90 # range -45 sampe 45
-            angle_diff_abs = abs(angle_diff_abs) # range 45 - 0 - 45
-            if angle_diff_abs>180:
-                angle_diff_abs = abs(-180 + (angle_diff_abs-180))
-            # 180-270
-            if angle_diff_abs!=0:
-                reward = 1/angle_diff_abs
+            # get nearest waypoint
+            jarak_min = 1000.0
+            for i, waypoint in enumerate(self.bunderan_waypoints):
+                jarak_temp = get_dist(car_trans.location.x,car_trans.location.y,waypoint[0],waypoint[1])
+                if jarak_temp<=jarak_min:
+                    nearest_id = i
+                    jarak_min = jarak_temp
+            if nearest_id==95:
+                done = True
+
+            # reward
+            target_id = min(100,nearest_id+5)
+            angle_to_target = angle_of_line(car_trans.location.x,car_trans.location.y,self.bunderan_waypoints[target_id][0],self.bunderan_waypoints[target_id][1])
+            alpha = abs(angle_difference(car_yaw,angle_to_target))
+            reward = 1/alpha
             reward = min(1,reward)
-            # reward 1 arah end   ===================================
+            # print(nearest_id,angle_to_target,alpha)
 
-            # reward 2 jarak start ==================================
-            dist_proc = abs(dist-dis)
-            reward2 = 1/(dist_proc*10)
-            reward2 = min(1,reward2)
-            # reward 2 jarak end   ==================================
+            # # reward 1 arah start ===================================
+            # angle_diff_abs = (angle_diff) # range 45 sampe 135
+            # angle_diff_abs += 90 # range -45 sampe 45
+            # angle_diff_abs = abs(angle_diff_abs) # range 45 - 0 - 45
+            # if angle_diff_abs>180:
+            #     angle_diff_abs = abs(-180 + (angle_diff_abs-180))
+            # # 180-270
+            # if angle_diff_abs!=0:
+            #     reward = 1/angle_diff_abs
+            # reward = min(1,reward)
+            # # reward 1 arah end   ===================================
 
-            # Punishment 1 jarak start ==============================
-            punishment = 0
-            if dist > 30:
-                punishment = .5
-            # Punishment 1 jarak end   ==============================
+            # # reward 2 jarak start ==================================
+            # dist_proc = abs(dist-dis)
+            # reward2 = 1/(dist_proc*10)
+            # reward2 = min(1,reward2)
+            # # reward 2 jarak end   ==================================
 
-            # reward total start ====================================
-            reward = reward+reward2-punishment
-            # reward total end   ====================================
+            # # Punishment 1 jarak start ==============================
+            # punishment = 0
+            # if dist > 30:
+            #     punishment = .5
+            # # Punishment 1 jarak end   ==============================
 
-            # global on_sidewalk
-            # if on_sidewalk==True:
-            #     on_sidewalk=False
-            #     reward = -1000
-            #     for _ in range(50):
-            #         print("sidewalknew")
+            # # reward total start ====================================
+            # reward = reward+reward2-punishment
+            # # reward total end   ====================================
+
+            # # global on_sidewalk
+            # # if on_sidewalk==True:
+            # #     on_sidewalk=False
+            # #     reward = -1000
+            # #     for _ in range(50):
+            # #         print("sidewalknew")
 
         # Reward NEW START ========================        
         # range -45 sampe -135
@@ -454,24 +592,24 @@ class CarlaEnv:
         if not self.playing and settings.WEIGHT_REWARDS_WITH_EPISODE_PROGRESS and not done:
             reward *= (time.time() - self.episode_start) / self.seconds_per_episode.value
 
-        # custom start ====================
-        # datas
-        if (done):
-            with open('avg_data.csv', mode='a', newline='') as avg_data_file:
-                avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-                avg_data_writer.writerow([
-                    int(time.time() - self.episode_start),
-                    np.mean(self.speed_list),
-                    np.mean(self.angle_diff_list),
-                    np.mean(self.dist_diff_list),
-                    np.mean(self.reward_list),
-                    ])
-        else:
-            self.speed_list.append(kmh)
-            self.angle_diff_list.append(angle_diff_abs)
-            self.dist_diff_list.append(dist_proc)
-            self.reward_list.append(reward)
-        # custom end ======================
+        # # custom start ====================
+        # # datas
+        # if (done):
+        #     with open('avg_data.csv', mode='a', newline='') as avg_data_file:
+        #         avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        #         avg_data_writer.writerow([
+        #             int(time.time() - self.episode_start),
+        #             np.mean(self.speed_list),
+        #             np.mean(self.angle_diff_list),
+        #             np.mean(self.dist_diff_list),
+        #             np.mean(self.reward_list),
+        #             ])
+        # else:
+        #     self.speed_list.append(kmh)
+        #     self.angle_diff_list.append(angle_diff_abs)
+        #     self.dist_diff_list.append(dist_proc)
+        #     self.reward_list.append(reward)
+        # # custom end ======================
 
 
         return [self.front_camera, kmh], reward, done, None
