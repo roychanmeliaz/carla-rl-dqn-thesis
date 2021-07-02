@@ -245,9 +245,8 @@ class CarlaEnv:
         # ]
         map_list_custom = [
             carla.Transform(carla.Location(x=103.8,y=64.2,z=1.8431),carla.Rotation(pitch=0, yaw=-179, roll=0)),
-            # carla.Transform(carla.Location(x=110.3,y=64.2,z=1.8431),carla.Rotation(pitch=0, yaw=-179, roll=0)),
-            carla.Transform(carla.Location(x=70.9,y=72.8,z=1.8431),carla.Rotation(pitch=0, yaw=-156, roll=0)),
-            carla.Transform(carla.Location(x=69.0,y=48.3,z=1.8431),carla.Rotation(pitch=0, yaw=-27, roll=0))
+            # carla.Transform(carla.Location(x=70.9,y=72.8,z=1.8431),carla.Rotation(pitch=0, yaw=-156, roll=0)),
+            # carla.Transform(carla.Location(x=69.0,y=48.3,z=1.8431),carla.Rotation(pitch=0, yaw=-27, roll=0))
         ]
         # set camera location
         camera = self.world.get_spectator()
@@ -516,6 +515,7 @@ class CarlaEnv:
 
             # reward
             target_id = min(100,nearest_id+5)
+            # self.world.debug.draw_box(carla.BoundingBox(carla.Location(x=self.bunderan_waypoints[target_id][0],y=self.bunderan_waypoints[target_id][1],z=0),carla.Vector3D(0.1,0.1,0.2)),carla.Rotation(), 0.05, carla.Color(255,0,0,0),1.0)
             angle_to_target = angle_of_line(car_trans.location.x,car_trans.location.y,self.bunderan_waypoints[target_id][0],self.bunderan_waypoints[target_id][1])
             alpha = abs(angle_difference(car_yaw,angle_to_target))
             reward = 1/alpha

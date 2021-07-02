@@ -1,1 +1,1 @@
-episode_length,speed,angle_diff,dist_diff,reward
+episode_length,speed,alpha,reward
