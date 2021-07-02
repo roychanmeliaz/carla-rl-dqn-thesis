@@ -256,8 +256,9 @@ class CarlaEnv:
         # variables tracking
         self.speed_list=[]
         self.episode_length_list=[]
-        self.angle_diff_list=[]
-        self.dist_diff_list=[]
+        # self.angle_diff_list=[]
+        # self.dist_diff_list=[]
+        self.alpha_list=[]
         self.reward_list=[]
         # custom end   ======================
 
@@ -592,24 +593,24 @@ class CarlaEnv:
         if not self.playing and settings.WEIGHT_REWARDS_WITH_EPISODE_PROGRESS and not done:
             reward *= (time.time() - self.episode_start) / self.seconds_per_episode.value
 
-        # # custom start ====================
-        # # datas
-        # if (done):
-        #     with open('avg_data.csv', mode='a', newline='') as avg_data_file:
-        #         avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        #         avg_data_writer.writerow([
-        #             int(time.time() - self.episode_start),
-        #             np.mean(self.speed_list),
-        #             np.mean(self.angle_diff_list),
-        #             np.mean(self.dist_diff_list),
-        #             np.mean(self.reward_list),
-        #             ])
-        # else:
-        #     self.speed_list.append(kmh)
-        #     self.angle_diff_list.append(angle_diff_abs)
-        #     self.dist_diff_list.append(dist_proc)
-        #     self.reward_list.append(reward)
-        # # custom end ======================
+        # custom start ====================
+        # datas
+        if (done):
+            with open('avg_data.csv', mode='a', newline='') as avg_data_file:
+                avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                avg_data_writer.writerow([
+                    int(time.time() - self.episode_start),
+                    np.mean(self.speed_list),
+                    np.mean(self.alpha_list),
+                    # np.mean(self.dist_diff_list),
+                    np.mean(self.reward_list),
+                    ])
+        else:
+            self.speed_list.append(kmh)
+            self.alpha_list.append(alpha)
+            # self.dist_diff_list.append(dist_proc)
+            self.reward_list.append(reward)
+        # custom end ======================
 
 
         return [self.front_camera, kmh], reward, done, None
