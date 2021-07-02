@@ -599,11 +599,11 @@ class CarlaEnv:
             with open('avg_data.csv', mode='a', newline='') as avg_data_file:
                 avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                 avg_data_writer.writerow([
-                    int(time.time() - self.episode_start),
-                    np.mean(self.speed_list),
-                    np.mean(self.alpha_list),
-                    # np.mean(self.dist_diff_list),
-                    np.mean(self.reward_list),
+                    round((time.time() - self.episode_start),3),
+                    round(np.mean(self.speed_list),3),
+                    round(np.mean(self.alpha_list),3),
+                    # round(np.mean(self.dist_diff_list),3),
+                    round(np.mean(self.reward_list),3),
                     ])
         else:
             self.speed_list.append(kmh)
