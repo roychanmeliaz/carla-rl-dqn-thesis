@@ -6,9 +6,9 @@ A bachelor thesis project about **autonomous car maneuver** around **roundabout*
 
 Two kinds of roundabouts are used in this research.
  - **Roundabout with Intersection**
-![roundabout](https://github.com/roychanmeliaz/bachelor-thesis-paper-latex/blob/main/images/bundaran.png?raw=true =400x)
+![roundabout](https://github.com/roychanmeliaz/bachelor-thesis-paper-latex/blob/main/images/bundaran.png?raw=true =400x100%)
  - **Roundabout without Intersection**
-![roundabout2](https://github.com/roychanmeliaz/bachelor-thesis-paper-latex/blob/main/images/bundaran_tanpa_simpang.png?raw=true =400x)
+![roundabout2](https://github.com/roychanmeliaz/bachelor-thesis-paper-latex/blob/main/images/bundaran_tanpa_simpang.png?raw=true =400x100%)
 
 ## Sensor
 The camera sensor was obtained, and then we did the semantic segmentation using CARLA's built-in function.
@@ -73,8 +73,4 @@ The value is `Reward2  = -1`. Collision event triggered when the agent touched a
 Using reinforcement learning with deep q network.
 
 ![methodology](https://github.com/roychanmeliaz/bachelor-thesis-paper-latex/blob/main/images/metodologi.png?raw=true)
-
-
-
-
 
