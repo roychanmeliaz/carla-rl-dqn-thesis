@@ -1,6 +1,6 @@
 # # Carla RL-DQN Thesis Project
 
-A bachelor thesis project about **autonomous car maneuver** around **roundabout** using **reinforcement learning** with **deep q network**
+A bachelor thesis project about **autonomous car maneuver** around **roundabout** using **reinforcement learning** with **deep q network**.
 
 ## Environment Setup
 
@@ -69,8 +69,11 @@ The value is `Reward2  = -0.5`. Agent too far event triggered when the distance 
  1. **Angle Deviation**.
 The value is `Reward1  = 1/alpha`. Alpha is the angle difference between the agent's direction and the direction from the agent to the nearest waypoint + 5 from the agent.
 <img src="https://github.com/roychanmeliaz/bachelor-thesis-paper-latex/blob/main/images/reward_alpha.png?raw=true" alt="image" height="260">   
+
  2. **Collision**
-The value is `Reward2  = -1`. Collision event triggered when the agent touched another object.
+The value is `Reward2  = -1`. Collision event triggered when the agent touched another object.   
+
+
  3. **Total Reward:**
  The total reward is `Reward =  Reward1 + Reward+2`
 
