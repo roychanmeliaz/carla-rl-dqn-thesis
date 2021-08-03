@@ -25,8 +25,8 @@ RESET_CAR_NPC_EVERY_N_TICKS = 1  # Resets one car NPC every given number of tick
 # ACTIONS = ['forward', 'forward_left', 'forward_right']  # ['forward', 'left', 'right', 'forward_left', 'forward_right', 'backwards', 'backwards_left', 'backwards_right']
 # brakeonly
 # ACTIONS = ['forward', 'forward_left', 'forward_right', 'brake']  # ['forward', 'left', 'right', 'forward_left', 'forward_right', 'backwards', 'backwards_left', 'backwards_right']
-# Opt A
-ACTIONS = ['forward', 'left', 'right']  # ['forward', 'left', 'right', 'forward_left', 'forward_right', 'backwards', 'backwards_left', 'backwards_right']
+# Opt B
+ACTIONS = ['forward', 'forward_left', 'forward_right']  # ['forward', 'left', 'right', 'forward_left', 'forward_right', 'backwards', 'backwards_left', 'backwards_right']
 WEIGHT_REWARDS_WITH_EPISODE_PROGRESS = False  # Linearly weights rewards from 0 to 1 with episode progress (from 0 up to SECONDS_PER_EPISODE)
 # WEIGHT_REWARDS_WITH_SPEED = 'linear'  # 'discrete': -1 < 50kmh, 1 otherwise, 'linear': -1..1 with 0..100kmh, 'quadratic': -1..1 with 0..100kmh with formula: (speed / 100) ** 1.3 * 2 - 1
 WEIGHT_REWARDS_WITH_SPEED = 'quadratic'  # 'discrete': -1 < 50kmh, 1 otherwise, 'linear': -1..1 with 0..100kmh, 'quadratic': -1..1 with 0..100kmh with formula: (speed / 100) ** 1.3 * 2 - 1
@@ -58,7 +58,7 @@ PREDICTION_BATCH_SIZE = 1  # How many samples to predict at once (the more, the 
 TRAINING_BATCH_SIZE = MINIBATCH_SIZE // 2  # How many samples to fit at once (the more, the faster) - should be MINIBATCH_SIZE divided by power of 2
 UPDATE_TARGET_EVERY = 100  # Terminal states (end of episodes)
 # MODEL_NAME = 'graysegtown3static_5_residual_#CNN_KERNELS#'  # model name, prefixed from sources/models.py, #MODEL_ARCHITECTURE# adds model architectore acronym, #CNN_KERNELS# adds number of kernels from all CNN layers
-MODEL_NAME = 'optA_notbunderan_segmented_64x3_#CNN_KERNELS#'  # model name, prefixed from sources/models.py, #MODEL_ARCHITECTURE# adds model architectore acronym, #CNN_KERNELS# adds number of kernels from all CNN layers
+MODEL_NAME = 'optB_notbunderan_segmented_64x3_#CNN_KERNELS#'  # model name, prefixed from sources/models.py, #MODEL_ARCHITECTURE# adds model architectore acronym, #CNN_KERNELS# adds number of kernels from all CNN layers
 MIN_REWARD = 100  # For model save
 TRAINER_MEMORY_FRACTION = 0.6
 TRAINER_GPU = None  # None - not set, 0, 1, ... - GPU with given index
