@@ -5,3 +5,4 @@ models*/
 models/
 *.pyc
 tmp/
+DATA_TA/
