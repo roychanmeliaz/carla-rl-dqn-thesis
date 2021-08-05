@@ -12,7 +12,7 @@ CARLA_HOSTS_NO = 1
 # CARLA_HOSTS = [['127.0.0.1', 2000, 10], ['127.0.0.1', 2002, 10]]  # List of hosts and ports and worlds to use, at least 2 ports of difference as Carla uses N and N+1 port, Town01 to Town97 for world currently, Town01 to Town07 for world are currently available, int number instead - random world change interval in minutes
 CARLA_HOSTS = [['127.0.0.1', 2000], ['127.0.0.1', 2002]]  # List of hosts and ports and worlds to use, at least 2 ports of difference as Carla uses N and N+1 port, Town01 to Town97 for world currently, Town01 to Town07 for world are currently available, int number instead - random world change interval in minutes
 
-SECONDS_PER_EPISODE = 10
+SECONDS_PER_EPISODE = 25
 EPISODE_FPS = 60  # Desired
 IMG_WIDTH = 480
 IMG_HEIGHT = 270
@@ -58,7 +58,7 @@ PREDICTION_BATCH_SIZE = 1  # How many samples to predict at once (the more, the 
 TRAINING_BATCH_SIZE = MINIBATCH_SIZE // 2  # How many samples to fit at once (the more, the faster) - should be MINIBATCH_SIZE divided by power of 2
 UPDATE_TARGET_EVERY = 100  # Terminal states (end of episodes)
 # MODEL_NAME = 'graysegtown3static_5_residual_#CNN_KERNELS#'  # model name, prefixed from sources/models.py, #MODEL_ARCHITECTURE# adds model architectore acronym, #CNN_KERNELS# adds number of kernels from all CNN layers
-MODEL_NAME = 'opt2_notbunderan_segmented_64x3_#CNN_KERNELS#'  # model name, prefixed from sources/models.py, #MODEL_ARCHITECTURE# adds model architectore acronym, #CNN_KERNELS# adds number of kernels from all CNN layers
+MODEL_NAME = 'opt2_75throttle_notbunderan_segmented_64x3_#CNN_KERNELS#'  # model name, prefixed from sources/models.py, #MODEL_ARCHITECTURE# adds model architectore acronym, #CNN_KERNELS# adds number of kernels from all CNN layers
 MIN_REWARD = 100  # For model save
 TRAINER_MEMORY_FRACTION = 0.6
 TRAINER_GPU = None  # None - not set, 0, 1, ... - GPU with given index
