@@ -604,6 +604,10 @@ class CarlaEnv:
         # custom start ====================
         # datas
         if (done and self.playing):
+            if not os.path.exists('./avg_data.csv'):
+                with open('avg_data.csv', mode='w', newline='') as avg_data_file:
+                    avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                    avg_data_writer.writerow(["episode_length","speed","alpha","reward"])
             with open('avg_data.csv', mode='a', newline='') as avg_data_file:
                 avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                 avg_data_writer.writerow([
