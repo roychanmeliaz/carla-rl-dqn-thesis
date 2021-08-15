@@ -598,7 +598,7 @@ class CarlaEnv:
 
         # custom start ====================
         # datas
-        if (done):
+        if (done and self.playing):
             with open('avg_data.csv', mode='a', newline='') as avg_data_file:
                 avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                 avg_data_writer.writerow([
