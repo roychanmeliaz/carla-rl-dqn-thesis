@@ -514,8 +514,13 @@ class CarlaEnv:
                 if jarak_temp<=jarak_min:
                     nearest_id = i
                     jarak_min = jarak_temp
-            if nearest_id==95:
-                done = True
+            # revisi
+            if (not self.playing):
+                if nearest_id==95:
+                    done = True
+            else:
+                if nearest_id==85:
+                    done = True
 
             # reward
             target_id = min(100,nearest_id+5)
