@@ -266,6 +266,7 @@ class CarlaEnv:
 
         self.finished=False
         self.stepcount=0
+        self.action_list=[]
         # custom end   ======================
 
         # Car, sensors, etc. We create them every episode then destroy
@@ -476,6 +477,9 @@ class CarlaEnv:
         # Apply control to the vehicle based on an action
         if self.actions[action] != ACTIONS.no_action:
             self.vehicle.apply_control(carla.VehicleControl(throttle=ACTION_CONTROL[self.actions[action]][0], steer=ACTION_CONTROL[self.actions[action]][2]*self.STEER_AMT, brake=ACTION_CONTROL[self.actions[action]][1]))
+            # custom for datas
+            self.action_list.append(action)
+            # end custom for datas
 
         # Calculate speed in km/h from car's velocity (3D vector)
         v = self.vehicle.get_velocity()
@@ -611,7 +615,7 @@ class CarlaEnv:
             if not os.path.exists('./avg_data.csv'):
                 with open('avg_data.csv', mode='w', newline='') as avg_data_file:
                     avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-                    avg_data_writer.writerow(["finished","total_step","episode_length","total_speed","avg_speed","total_alpha","avg_alpha","total_reward","avg_reward"])
+                    avg_data_writer.writerow(["finished","total_step","episode_length","total_speed","avg_speed","total_alpha","avg_alpha","total_reward","avg_reward","forward","0"])
             with open('avg_data.csv', mode='a', newline='') as avg_data_file:
                 avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                 avg_data_writer.writerow([
@@ -625,6 +629,8 @@ class CarlaEnv:
                     # round(np.mean(self.dist_diff_list),3),
                     round(sum(self.reward_list),3),
                     round(np.mean(self.reward_list),3),
+                    self.action_list.count('forward')
+                    self.action_list.count(0)
                     ])
         else:
             self.speed_list.append(kmh)
