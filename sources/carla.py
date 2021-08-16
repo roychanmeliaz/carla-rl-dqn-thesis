@@ -615,7 +615,11 @@ class CarlaEnv:
             if not os.path.exists('./avg_data.csv'):
                 with open('avg_data.csv', mode='w', newline='') as avg_data_file:
                     avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-                    avg_data_writer.writerow(["finished","total_step","episode_length","total_speed","avg_speed","total_alpha","avg_alpha","total_reward","avg_reward","forward","0"])
+                    avg_data_writer.writerow(["finished","total_step","episode_length","total_speed","avg_speed",
+                                                "total_alpha","avg_alpha","total_reward","avg_reward",
+                                                "total_action","action_forward","action_left","action_right",
+                                                "action_forward_left","action_forward_right","action_brake","action_brake_left",
+                                                "action_brake_right","action_no_action"])
             with open('avg_data.csv', mode='a', newline='') as avg_data_file:
                 avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                 avg_data_writer.writerow([
@@ -629,8 +633,16 @@ class CarlaEnv:
                     # round(np.mean(self.dist_diff_list),3),
                     round(sum(self.reward_list),3),
                     round(np.mean(self.reward_list),3),
-                    self.action_list.count('forward'),
-                    self.action_list.count(0)
+                    len(self.action_list),
+                    self.action_list.count(0),
+                    self.action_list.count(1),
+                    self.action_list.count(2),
+                    self.action_list.count(3),
+                    self.action_list.count(4),
+                    self.action_list.count(5),
+                    self.action_list.count(6),
+                    self.action_list.count(7),
+                    self.action_list.count(8),
                     ])
         else:
             self.speed_list.append(kmh)
