@@ -265,6 +265,7 @@ class CarlaEnv:
         self.reward_list=[]
 
         self.finished=False
+        self.stepcount=0
         # custom end   ======================
 
         # Car, sensors, etc. We create them every episode then destroy
@@ -610,15 +611,19 @@ class CarlaEnv:
             if not os.path.exists('./avg_data.csv'):
                 with open('avg_data.csv', mode='w', newline='') as avg_data_file:
                     avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-                    avg_data_writer.writerow(["finished","episode_length","speed","alpha","reward"])
+                    avg_data_writer.writerow(["finished","total_step","episode_length","total_speed","avg_speed","total_alpha","avg_alpha","total_reward","avg_reward"])
             with open('avg_data.csv', mode='a', newline='') as avg_data_file:
                 avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                 avg_data_writer.writerow([
                     self.finished,
+                    self.stepcount,
                     round((time.time() - self.episode_start),3),
+                    sum(self.speed_list),
                     round(np.mean(self.speed_list),3),
+                    sum(self.alpha_list),
                     round(np.mean(self.alpha_list),3),
                     # round(np.mean(self.dist_diff_list),3),
+                    sum(self.reward_list),
                     round(np.mean(self.reward_list),3),
                     ])
         else:
@@ -626,6 +631,8 @@ class CarlaEnv:
             self.alpha_list.append(alpha)
             # self.dist_diff_list.append(dist_proc)
             self.reward_list.append(reward)
+
+            self.stepcount+=1
         # custom end ======================
 
 
