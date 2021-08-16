@@ -622,7 +622,7 @@ class CarlaEnv:
                     avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                     avg_data_writer.writerow(["finished","total_step","episode_length","total_speed","avg_speed",
                                                 "total_alpha","avg_alpha","total_reward","avg_reward",
-                                                "total_action","action_change_count","action_forward","action_left","action_right",
+                                                "total_action","action_change_count","action_forward",
                                                 "action_forward_left","action_forward_right"])
             with open('avg_data.csv', mode='a', newline='') as avg_data_file:
                 avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
