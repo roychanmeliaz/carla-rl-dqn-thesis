@@ -199,7 +199,7 @@ class CarlaEnv:
     def __init__(self, carla_instance, seconds_per_episode=None, playing=False):
         # custom start =========================
         # variables tracking
-        self.speed_list=[]
+        # self.speed_list=[]
         # custom end   =========================
 
         # Set a client and timeouts
@@ -263,6 +263,8 @@ class CarlaEnv:
         # self.dist_diff_list=[]
         self.alpha_list=[]
         self.reward_list=[]
+
+        self.finished=False
         # custom end   ======================
 
         # Car, sensors, etc. We create them every episode then destroy
@@ -521,6 +523,7 @@ class CarlaEnv:
             else:
                 if nearest_id==85:
                     done = True
+                    self.finished = True
 
             # reward
             target_id = min(100,nearest_id+5)
@@ -607,10 +610,11 @@ class CarlaEnv:
             if not os.path.exists('./avg_data.csv'):
                 with open('avg_data.csv', mode='w', newline='') as avg_data_file:
                     avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-                    avg_data_writer.writerow(["episode_length","speed","alpha","reward"])
+                    avg_data_writer.writerow(["finished","episode_length","speed","alpha","reward"])
             with open('avg_data.csv', mode='a', newline='') as avg_data_file:
                 avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                 avg_data_writer.writerow([
+                    self.finished,
                     round((time.time() - self.episode_start),3),
                     round(np.mean(self.speed_list),3),
                     round(np.mean(self.alpha_list),3),
