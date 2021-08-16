@@ -629,7 +629,7 @@ class CarlaEnv:
                     # round(np.mean(self.dist_diff_list),3),
                     round(sum(self.reward_list),3),
                     round(np.mean(self.reward_list),3),
-                    self.action_list.count('forward')
+                    self.action_list.count('forward'),
                     self.action_list.count(0)
                     ])
         else:
