@@ -618,12 +618,12 @@ class CarlaEnv:
                     self.finished,
                     self.stepcount,
                     round((time.time() - self.episode_start),3),
-                    sum(self.speed_list),
+                    round(sum(self.speed_list),3),
                     round(np.mean(self.speed_list),3),
-                    sum(self.alpha_list),
+                    round(sum(self.alpha_list),3),
                     round(np.mean(self.alpha_list),3),
                     # round(np.mean(self.dist_diff_list),3),
-                    sum(self.reward_list),
+                    round(sum(self.reward_list),3),
                     round(np.mean(self.reward_list),3),
                     ])
         else:
