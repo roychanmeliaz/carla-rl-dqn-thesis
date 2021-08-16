@@ -267,6 +267,8 @@ class CarlaEnv:
         self.finished=False
         self.stepcount=0
         self.action_list=[]
+        self.prev_action=-1
+        self.action_change_count=0
         # custom end   ======================
 
         # Car, sensors, etc. We create them every episode then destroy
@@ -479,6 +481,9 @@ class CarlaEnv:
             self.vehicle.apply_control(carla.VehicleControl(throttle=ACTION_CONTROL[self.actions[action]][0], steer=ACTION_CONTROL[self.actions[action]][2]*self.STEER_AMT, brake=ACTION_CONTROL[self.actions[action]][1]))
             # custom for datas
             self.action_list.append(action)
+            if self.prev_action!=action:
+                self.action_change_count+=1
+                self.prev_action = action
             # end custom for datas
 
         # Calculate speed in km/h from car's velocity (3D vector)
@@ -617,9 +622,8 @@ class CarlaEnv:
                     avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                     avg_data_writer.writerow(["finished","total_step","episode_length","total_speed","avg_speed",
                                                 "total_alpha","avg_alpha","total_reward","avg_reward",
-                                                "total_action","action_forward","action_left","action_right",
-                                                "action_forward_left","action_forward_right","action_brake","action_brake_left",
-                                                "action_brake_right","action_no_action"])
+                                                "total_action","action_change_count","action_forward","action_left","action_right",
+                                                "action_forward_left","action_forward_right"])
             with open('avg_data.csv', mode='a', newline='') as avg_data_file:
                 avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                 avg_data_writer.writerow([
@@ -634,15 +638,16 @@ class CarlaEnv:
                     round(sum(self.reward_list),3),
                     round(np.mean(self.reward_list),3),
                     len(self.action_list),
+                    self.action_change_count,
                     self.action_list.count(0),
                     self.action_list.count(1),
                     self.action_list.count(2),
-                    self.action_list.count(3),
-                    self.action_list.count(4),
-                    self.action_list.count(5),
-                    self.action_list.count(6),
-                    self.action_list.count(7),
-                    self.action_list.count(8),
+                    # self.action_list.count(3),
+                    # self.action_list.count(4),
+                    # self.action_list.count(5),
+                    # self.action_list.count(6),
+                    # self.action_list.count(7),
+                    # self.action_list.count(8),
                     ])
         else:
             self.speed_list.append(kmh)
