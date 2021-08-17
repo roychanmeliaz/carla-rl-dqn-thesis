@@ -269,6 +269,8 @@ class CarlaEnv:
         self.action_list=[]
         self.prev_action=-1
         self.action_change_count=0
+        self.car_x_list=[]
+        self.car_y_list=[]
         # custom end   ======================
 
         # Car, sensors, etc. We create them every episode then destroy
@@ -618,6 +620,7 @@ class CarlaEnv:
         # datas
         if (self.playing):
             if (done):
+                # summary
                 if not os.path.exists('./avg_data.csv'):
                     with open('avg_data.csv', mode='w', newline='') as avg_data_file:
                         avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -650,12 +653,26 @@ class CarlaEnv:
                         # self.action_list.count(7),
                         # self.action_list.count(8),
                         ])
+                # trajectory
+                if (self.finished):
+                    if not os.path.exists('./trajectory.csv'):
+                        with open('trajectory.csv', mode='w', newline='') as trajectory_data_file:
+                            trajectory_data_writer = csv.writer(trajectory_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                            trajectory_data_writer.writerow(["x","y"])
+                    with open('avg_data.csv', mode='a', newline='') as trajectory_data_file:
+                        trajectory_data_writer = csv.writer(trajectory_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                        for i in range(len(self.car_x_list)):
+                            trajectory_data_writer.writerow([self.car_x_list[i],self.car_y_list[i]])
             else:
+                # summary
                 self.speed_list.append(kmh)
                 self.alpha_list.append(alpha)
                 # self.dist_diff_list.append(dist_proc)
                 self.reward_list.append(reward)
                 self.stepcount+=1
+                # trajectory
+                self.car_x_list.append(car_trans.location.x)
+                self.car_y_list.append(car_trans.location.y)
         # custom end ======================
 
         return [self.front_camera, kmh], reward, done, None
