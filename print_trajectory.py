@@ -143,9 +143,9 @@ def main():
     camera.set_transform(carla.Transform(carla.Location(x=85.035,y=58.13,z=65.596),carla.Rotation(pitch=-89.0,yaw=-180.0,roll=0.0)))
 
     for waypoint in bunderan_waypoints:
-        world.debug.draw_box(carla.BoundingBox(carla.Location(x=waypoint[0],y=waypoint[1],z=0),carla.Vector3D(0.1,0.1,0.2)),carla.Rotation(), 0.25, carla.Color(255,0,0,0),60.0)
+        world.debug.draw_box(carla.BoundingBox(carla.Location(x=waypoint[0],y=waypoint[1],z=0),carla.Vector3D(0.1,0.1,0.2)),carla.Rotation(), 0.25, carla.Color(255,0,0,0),30.0)
 
-    read_interval=10
+    read_interval=4
     with open('trajectory.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
@@ -155,13 +155,13 @@ def main():
                 print(f'Column names are {", ".join(row)}')
                 line_count += 1
             else:
-                if line_count-1%line_count==0:
-                    print(f'\t{row[0]} works in the {row[1]}.')
+                if (line_count-1)%read_interval==0:
+                    print(f'\t{read_count} - x = {row[0]}, y = {row[1]}')
                     read_count += 1
+                    world.debug.draw_box(carla.BoundingBox(carla.Location(x=float(row[0]),y=float(row[1]),z=0),carla.Vector3D(0.1,0.1,0.2)),carla.Rotation(), 0.25, carla.Color(0,0,255,0),35.0)
                 line_count += 1
         print(f'Processed {line_count} lines.')
         print(f'Read {read_count} lines.')
-    return 0
 
     while(True):
         t = world.get_spectator().get_transform()
@@ -196,7 +196,7 @@ def main():
         #     round(t.rotation.pitch,3), round(t.rotation.yaw,3), round(t.rotation.roll,3)
         #     )
         # print (coordinate_str)
-        # time.sleep(_SLEEP_TIME_)
+        time.sleep(_SLEEP_TIME_)
 
 if __name__ == '__main__':
     main()
