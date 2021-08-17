@@ -13,6 +13,8 @@ import sys
 import time
 import settings
 
+import csv
+
 try:
     sys.path.append(glob.glob(settings.CARLA_PATH + f'/PythonAPI/carla/dist/carla-*{sys.version_info.major}.{sys.version_info.minor}-{"win-amd64" if os.name == "nt" else "linux-x86_64"}.egg')[0])
 except IndexError:
@@ -143,6 +145,17 @@ def main():
     for waypoint in bunderan_waypoints:
         world.debug.draw_box(carla.BoundingBox(carla.Location(x=waypoint[0],y=waypoint[1],z=0),carla.Vector3D(0.1,0.1,0.2)),carla.Rotation(), 0.25, carla.Color(255,0,0,0),60.0)
 
+    with open('trajectory.txt') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        line_count = 0
+        for row in csv_reader:
+            if line_count == 0:
+                print(f'Column names are {", ".join(row)}')
+                line_count += 1
+            else:
+                print(f'\t{row[0]} works in the {row[1]}.')
+                line_count += 1
+        print(f'Processed {line_count} lines.')
 
     while(True):
         t = world.get_spectator().get_transform()
