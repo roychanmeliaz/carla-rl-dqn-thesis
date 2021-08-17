@@ -616,48 +616,47 @@ class CarlaEnv:
 
         # custom start ====================
         # datas
-        if (done and self.playing):
-            if not os.path.exists('./avg_data.csv'):
-                with open('avg_data.csv', mode='w', newline='') as avg_data_file:
+        if (self.playing):
+            if (done):
+                if not os.path.exists('./avg_data.csv'):
+                    with open('avg_data.csv', mode='w', newline='') as avg_data_file:
+                        avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                        avg_data_writer.writerow(["finished","total_step","episode_length","total_speed","avg_speed",
+                                                    "total_alpha","avg_alpha","total_reward","avg_reward",
+                                                    "total_action","action_change_count","action_forward",
+                                                    "action_forward_left","action_forward_right"])
+                with open('avg_data.csv', mode='a', newline='') as avg_data_file:
                     avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-                    avg_data_writer.writerow(["finished","total_step","episode_length","total_speed","avg_speed",
-                                                "total_alpha","avg_alpha","total_reward","avg_reward",
-                                                "total_action","action_change_count","action_forward",
-                                                "action_forward_left","action_forward_right"])
-            with open('avg_data.csv', mode='a', newline='') as avg_data_file:
-                avg_data_writer = csv.writer(avg_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-                avg_data_writer.writerow([
-                    self.finished,
-                    self.stepcount,
-                    round((time.time() - self.episode_start),3),
-                    round(sum(self.speed_list),3),
-                    round(np.mean(self.speed_list),3),
-                    round(sum(self.alpha_list),3),
-                    round(np.mean(self.alpha_list),3),
-                    # round(np.mean(self.dist_diff_list),3),
-                    round(sum(self.reward_list),3),
-                    round(np.mean(self.reward_list),3),
-                    len(self.action_list),
-                    self.action_change_count,
-                    self.action_list.count(0),
-                    self.action_list.count(1),
-                    self.action_list.count(2),
-                    # self.action_list.count(3),
-                    # self.action_list.count(4),
-                    # self.action_list.count(5),
-                    # self.action_list.count(6),
-                    # self.action_list.count(7),
-                    # self.action_list.count(8),
-                    ])
-        else:
-            self.speed_list.append(kmh)
-            self.alpha_list.append(alpha)
-            # self.dist_diff_list.append(dist_proc)
-            self.reward_list.append(reward)
-
-            self.stepcount+=1
+                    avg_data_writer.writerow([
+                        self.finished,
+                        self.stepcount,
+                        round((time.time() - self.episode_start),3),
+                        round(sum(self.speed_list),3),
+                        round(np.mean(self.speed_list),3),
+                        round(sum(self.alpha_list),3),
+                        round(np.mean(self.alpha_list),3),
+                        # round(np.mean(self.dist_diff_list),3),
+                        round(sum(self.reward_list),3),
+                        round(np.mean(self.reward_list),3),
+                        len(self.action_list),
+                        self.action_change_count,
+                        self.action_list.count(0),
+                        self.action_list.count(1),
+                        self.action_list.count(2),
+                        # self.action_list.count(3),
+                        # self.action_list.count(4),
+                        # self.action_list.count(5),
+                        # self.action_list.count(6),
+                        # self.action_list.count(7),
+                        # self.action_list.count(8),
+                        ])
+            else:
+                self.speed_list.append(kmh)
+                self.alpha_list.append(alpha)
+                # self.dist_diff_list.append(dist_proc)
+                self.reward_list.append(reward)
+                self.stepcount+=1
         # custom end ======================
-
 
         return [self.front_camera, kmh], reward, done, None
 
