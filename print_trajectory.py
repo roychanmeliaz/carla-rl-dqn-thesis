@@ -145,7 +145,7 @@ def main():
     for waypoint in bunderan_waypoints:
         world.debug.draw_box(carla.BoundingBox(carla.Location(x=waypoint[0],y=waypoint[1],z=0),carla.Vector3D(0.1,0.1,0.2)),carla.Rotation(), 0.25, carla.Color(255,0,0,0),60.0)
 
-    with open('trajectory.txt') as csv_file:
+    with open('trajectory.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
         for row in csv_reader:
