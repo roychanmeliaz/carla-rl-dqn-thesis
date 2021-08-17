@@ -145,17 +145,22 @@ def main():
     for waypoint in bunderan_waypoints:
         world.debug.draw_box(carla.BoundingBox(carla.Location(x=waypoint[0],y=waypoint[1],z=0),carla.Vector3D(0.1,0.1,0.2)),carla.Rotation(), 0.25, carla.Color(255,0,0,0),60.0)
 
+    read_interval=10
     with open('trajectory.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
+        read_count = 0
         for row in csv_reader:
             if line_count == 0:
                 print(f'Column names are {", ".join(row)}')
                 line_count += 1
             else:
-                print(f'\t{row[0]} works in the {row[1]}.')
+                if line_count-1%line_count==0:
+                    print(f'\t{row[0]} works in the {row[1]}.')
+                    read_count += 1
                 line_count += 1
         print(f'Processed {line_count} lines.')
+        print(f'Read {read_count} lines.')
 
     while(True):
         t = world.get_spectator().get_transform()
