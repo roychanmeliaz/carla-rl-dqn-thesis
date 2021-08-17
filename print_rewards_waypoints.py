@@ -137,6 +137,9 @@ def main():
     client.set_timeout(2.0)
     world = client.get_world()
 
+    camera = world.get_spectator()
+    camera.set_transform(carla.Transform(carla.Location(x=85.035,y=58.13,z=65.596),carla.Rotation(pitch=-89.0,yaw=-180.0,roll=0.0)))
+
     for waypoint in bunderan_waypoints:
         world.debug.draw_box(carla.BoundingBox(carla.Location(x=waypoint[0],y=waypoint[1],z=0),carla.Vector3D(0.1,0.1,0.2)),carla.Rotation(), 0.05, carla.Color(255,0,0,0),60.0)
 
