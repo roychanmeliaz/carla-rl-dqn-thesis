@@ -161,6 +161,7 @@ def main():
                 line_count += 1
         print(f'Processed {line_count} lines.')
         print(f'Read {read_count} lines.')
+    return 0
 
     while(True):
         t = world.get_spectator().get_transform()
