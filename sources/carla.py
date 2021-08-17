@@ -659,7 +659,7 @@ class CarlaEnv:
                         with open('trajectory.csv', mode='w', newline='') as trajectory_data_file:
                             trajectory_data_writer = csv.writer(trajectory_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                             trajectory_data_writer.writerow(["x","y"])
-                    with open('avg_data.csv', mode='a', newline='') as trajectory_data_file:
+                    with open('trajectory.csv', mode='a', newline='') as trajectory_data_file:
                         trajectory_data_writer = csv.writer(trajectory_data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                         for i in range(len(self.car_x_list)):
                             trajectory_data_writer.writerow([self.car_x_list[i],self.car_y_list[i]])
