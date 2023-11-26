@@ -2,6 +2,8 @@
 
 A bachelor thesis project about **autonomous car maneuver** around **roundabout** using **reinforcement learning** with **deep q network**.
 
+Conference paper published at: https://ieeexplore.ieee.org/document/10221077
+
 ## Environment Setup
 
 Two kinds of roundabouts are used in this research.
